@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<script type="text/javascript" src="jquery-1.8.0.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("button#hide").click(function(){
+			$("p").fadeOut(function(){
+				alert("fade out");
+				});
+		});
+		$("button.show").click(function(){
+			$("p").fadeIn();
+			});
+		$(".toggle").click(function(){
+			$("p").height("300px");
+			});
+		$(window).unload(function(){
+			alert("good bye!");
+			});
+	});
+</script>
+<title>study001</title>
+</head>
+<body>
+	<p> if you click on me,i will disappear</p>
+	<button type="button" id="hide">Click me!</button>
+	<button type="button" class="show">show!!!</button>
+	<button type="button" class="toggle">toggle!!!</button>
+	<a href="http://www.baidu.com">百度推广</a>
+</body>
+</html>
