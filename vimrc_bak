@@ -1,3 +1,33 @@
+set nocompatible
+filetype off "required!"
+"使用vundle管理插件"
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+"使用vundle来管理vundle，这个必须有"
+Bundle 'gmarik/vundle' 
+"接下来是要安装的插件
+"格式1：github上的其他用户的仓库（非vim-script帐户里的仓库）要加用户名"
+Bundle 'tpope/vim-fugitive'
+"格式2：vim-script的仓库里的插件，直接打仓库名即可。"
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'PinyinSearch'
+let g:PinyinSearch_Dict='/home/hunter/.vim/bundle/PinyinSearch/PinyinSearch.dict'
+"下面插件参考 <a href="https://raw.github.com/mattn/zencoding-vim/master/TUTORIAL"></a>
+ "
+Bundle 'ZenCoding.vim'
+Bundle 'SyntaxComplete'
+if has("autocmd") && exists("+omnifunc")
+		autocmd Filetype *
+				    \	if &omnifunc == "" |
+				    \		setlocal omnifunc=syntaxcomplete#Complete |
+				    \	endif
+endif
+"格式3：非github上的git仓库"
+Bundle 'git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex'
+
+"在所有的Bundle命令后加上文件类型检测"
+filetype plugin indent on
 syntax enable
 "重设配色方案"
 colorscheme desert
@@ -13,8 +43,6 @@ set ai "Autoindent
 set si "Smart indent
 set wrap "wrap lines
 set autoread
-filetype plugin on
-filetype indent on
 set wildmenu   
 "增强 模式中的命令自动完成操作"
 set cin    
@@ -39,6 +67,7 @@ set showmatch
 set lazyredraw
 set hlsearch
 let mapleader=","
+"下面的是输入，ee 后查看vimrc文件"
 map <silent> <leader>ee :e ~/.vimrc<cr>
 let Tlist_Ctags_Cmd='/bin/ctags'  
 let Tlist_Show_One_File=1  
@@ -97,20 +126,30 @@ function Addtitle()
 	call setline(6,'</head>')
 	call setline(9,'</html>')
 endfunction
-map ml:call Addtitle()<CR>
- "html/xhtml editing in vim (写完>后自动不全结束标签)
-  function! InsertHtmlTag()
-          let pat = '\c<\w\+\s*\(\s\+\w\+\s*=\s*[''#$;,()."a-z0-9]\+\)*\s*>'
-          normal! a>
-          let save_cursor = getpos('.')
-          let result = matchstr(getline(save_cursor[1]), pat)
-          "if (search(pat, 'b', save_cursor[1]) && searchpair('<','','>', 'bn',0,getline('.')) > 0)
-          if (search(pat, 'b', save_cursor[1]))
-             normal! lyiwf>
-               normal! a</
-                   normal! p
-                      normal! a>
-                     endif
-                      :call cursor(save_cursor[1], save_cursor[2], save_cursor[3])
-          endfunction
-          inoremap > <ESC>:call InsertHtmlTag()<CR>a
+"下面这一行的调用方式是在normal模式下输入 ,ml   因为leader被定义成,"
+nnoremap <Leader>ml :call Addtitle()<CR>
+"html/xhtml editing in vim (写完>后自动不全结束标签)
+function! InsertHtmlTag()
+    let pat = '\c<\w\+\s*\(\s\+\w\+\s*=\s*[''#$;,()."a-z0-9]\+\)*\s*>'
+    normal! a>
+    let save_cursor = getpos('.')
+    let result = matchstr(getline(save_cursor[1]), pat)
+    "if (search(pat, 'b', save_cursor[1]) && searchpair('<','','>', 'bn',0,getline('.')) > 0)
+    if (search(pat, 'b', save_cursor[1]))
+        normal! lyiwf>
+        normal! a</
+        normal! p
+        normal! a>
+     endif
+    :call cursor(save_cursor[1], save_cursor[2], save_cursor[3])
+endfunction
+inoremap > <ESC>:call InsertHtmlTag()<CR>
+inoremap ( ()<ESC>i
+inoremap { {<CR>}<ESC>O
+inoremap [ []<ESC>i
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
+
+
+nnoremap <leader>ps :call PinyinSearch()<CR>
+nnoremap <leader>pn :call PinyinNext()<CR>
