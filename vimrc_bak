@@ -143,12 +143,6 @@ function! InsertHtmlTag()
      endif
     :call cursor(save_cursor[1], save_cursor[2], save_cursor[3])
 endfunction
-inoremap > <ESC>:call InsertHtmlTag()<CR>
-inoremap ( ()<ESC>i
-inoremap { {<CR>}<ESC>O
-inoremap [ []<ESC>i
-inoremap " ""<ESC>i
-inoremap ' ''<ESC>i
 
 
 nnoremap <leader>ps :call PinyinSearch()<CR>
