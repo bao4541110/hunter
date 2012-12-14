@@ -1,20 +1,31 @@
 set nocompatible
-filetype off "required!"
-"使用vundle管理插件"
+filetype off "required!
+"使用vundle管理插件
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-"使用vundle来管理vundle，这个必须有"
+"使用vundle来管理vundle，这个必须有
 Bundle 'gmarik/vundle' 
 "接下来是要安装的插件
-"格式1：github上的其他用户的仓库（非vim-script帐户里的仓库）要加用户名"
+"格式1：github上的其他用户的仓库（非vim-script帐户里的仓库）要加用户名
 Bundle 'tpope/vim-fugitive'
 "格式2：vim-script的仓库里的插件，直接打仓库名即可。"
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'PinyinSearch'
 let g:PinyinSearch_Dict='/home/hunter/.vim/bundle/PinyinSearch/PinyinSearch.dict'
-"下面插件参考 <a href="https://raw.github.com/mattn/zencoding-vim/master/TUTORIAL"></a>
- "
+Bundle 'Lokaltog/vim-powerline'
+" vim-powerline
+set laststatus=2
+set t_Co=256
+let g:Powerline_symbols = 'unicode'
+set encoding=utf8
+
+Bundle 'The-NERD-tree'
+Bundle 'winmanager'
+Bundle 'taglist.vim'
+Bundle 'minibufexpl.vim'
+Bundle 'bufexplorer.zip'
+Bundle 'OmniCppComplete'
 Bundle 'ZenCoding.vim'
 Bundle 'SyntaxComplete'
 if has("autocmd") && exists("+omnifunc")
@@ -32,7 +43,7 @@ syntax enable
 "重设配色方案"
 colorscheme desert
 set fencs=utf-8,cp936,gbk
-"set spell"
+set spell
 set encoding=utf8
 set ffs=unix,dos,mac
 set nu
@@ -72,11 +83,11 @@ map <silent> <leader>ee :e ~/.vimrc<cr>
 let Tlist_Ctags_Cmd='/bin/ctags'  
 let Tlist_Show_One_File=1  
 let Tlist_Ctags_Cmd="/usr/bin/ctags"
-"if &diff
-"	let Tlist_Auto_Open=0
-"else
-"	let Tlist_Auto_Open=1
-"endif
+if &diff
+	let Tlist_Auto_Open=0
+else
+	let Tlist_Auto_Open=1
+endif
 let Tlist_Use_Right_Window=1
 let Tlist_Exit_OnlyWindow=1  
 nmap <F6> :Tlist<CR>
@@ -117,7 +128,7 @@ let g:pydiction_menu_hight=20
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 "设置python 运行的快捷方式"
 nmap <F5> :! python %<cr>
-function Addtitle()
+function AddTitle()
 	call setline(1, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">')
 	call setline(2,'<html xmlns="http://www.w3.org/1999/xhtml">')
 	call setline(3,'<head>')
@@ -127,7 +138,7 @@ function Addtitle()
 	call setline(9,'</html>')
 endfunction
 "下面这一行的调用方式是在normal模式下输入 ,ml   因为leader被定义成,"
-nnoremap <Leader>ml :call Addtitle()<CR>
+nnoremap <Leader>ml :call AddTitle()<CR>
 "html/xhtml editing in vim (写完>后自动不全结束标签)
 function! InsertHtmlTag()
     let pat = '\c<\w\+\s*\(\s\+\w\+\s*=\s*[''#$;,()."a-z0-9]\+\)*\s*>'
@@ -147,3 +158,38 @@ endfunction
 
 nnoremap <leader>ps :call PinyinSearch()<CR>
 nnoremap <leader>pn :call PinyinNext()<CR>
+
+" =========
+" AutoCmd
+" =========
+if has("autocmd")
+    filetype plugin indent on
+endif    
+" 括号自动补全
+func! AutoClose()
+    :inoremap ( ()<ESC>i
+    :inoremap " ""<ESC>i
+    :inoremap ' ''<ESC>i
+    :inoremap { {}<ESC>i
+    :inoremap [ []<ESC>i
+    :inoremap ) <c-r>=ClosePair(')')<CR>
+    :inoremap } <c-r>=ClosePair('}')<CR>
+    :inoremap ] <c-r>=ClosePair(']')<CR>
+endf
+
+function! ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endf
+
+autocmd BufNewFile *.py 0r ~/.vim/template/pythonconfig.py
+autocmd BufNewFile *.html 0r ~/.vim/template/htmlconfig.html
+" 在光标下插入新行
+imap <M-o> <Esc>o
+
+"修改 vmirc 后自动生效
+map <leader>s :source ~/.vimrc<cr>
+autocmd! bufwritepost .vimrc source ~/.vimrc
