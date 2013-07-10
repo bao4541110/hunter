@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+        Remove this if you use the .htaccess -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>index2</title>
+        <meta name="description" content="">
+        <meta name="author" content="Administrator">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,maximum-scale=1.0,minimum-scale=1.0">
+        <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+        <link rel="shortcut icon" href="http://jscssdemo.sinaapp.com/favicon.ico">
+        <link rel="apple-touch-icon" href="http://jscssdemo.sinaapp.com/apple-touch-icon.png">
+        
+        <link rel="stylesheet" href="index2_files/myTabs.css" type="text/css">
+        <script type="text/javascript">
+            window.onload=function(){
+                document.addEventListener("touchmove",function(event){
+                    event.preventDefault();
+                })
+            }
+        </script>
+        
+        
+    </head>
+    <body>
+        <div class="main">
+            <div class="tabs">
+                <input name="radio-set" id="tab-1" class="tab-selector-1" checked="checked" type="radio">
+                <label for="tab-1" onclick="" class="tabs-label-1">tab1</label>
+                <input name="radio-set" class="tab-selector-2" id="tab-2" type="radio">
+                <label for="tab-2" onclick="" class="tabs-label-2">tab2</label>
+                <input name="radio-set" class="tab-selector-3" id="tab-3" type="radio">
+                <label for="tab-3" onclick="" class="tabs-label-3">tab3</label>
+                <input name="radio-set" class="tab-selector-4" id="tab-4" type="radio">
+                <label for="tab-4" onclick="" class="tabs-label-4">tab4</label>  
+                <div class="contents">
+                    <div class="content-1">
+                        <h2>这是第一节</h2>
+                        <p>变化的属性：transition-property指定当元素其中一个属性改变时执行
+transition效果，其中none没有属性改变；all所有属性都改变（默认）。
+                                                                        
+    
+动画时间：transition-duration动画执行的时间，单位为s（秒），比如0.1秒可以写成“0.1s”或者“.1s”，它可以作用于任何
+元素，包括:before和:after伪元素。
+                                                                        
+    动画执行的方式：transition-timing-function 
+ease：逐渐慢下来；linear：匀速；ease-in：由慢到快；ease-out：由快到慢；ease-in-out：先慢到快再到慢。
+                                                                        
+    
+动画延迟：transition-delay指定一个动画开始执行的时间，也就是说当改变元素属性值后多长时间开始执行transition动画效果，取
+值同transition-duration。</p>
+                    </div>
+                    <div class="content-2">
+                        <h2>这是第二节</h2>
+                        <p>animation只应用在页面上已存在的DOM元素上，与Flash和JavaScript及jQuery制作出来的动画效果不同，制作出的动画较为简单（不足）。
+                              如果想做出高质量的动画，Flash和JavaScript或jQuery是首选。</p>
+                    </div>
+                    <div class="content-3">
+                        <h2>这是第三节</h2>
+                        <p>Keyframes类似于flash的关键帧，由”@keyframes”开头，后面紧接着是 “动画的名称”加上一对花括号“{}”，括号中是不同时间段样式规则，与css的样式写法相同。样式的构成，如“0%”到”100%”之间，
+                              我们可以在这个规则中创建任意个百分比，分别给每个百分比中设置动画效果属性，让元素实现不断变化的效果。</p>
+                    </div>
+                    <div class="content-4">
+                        <h2>这是第四节</h2>
+                        <p>动画时长：animation-duration指定元素播放动画所持续的时长，如设置为
+normal时，动画的每次循环都是向前播放；另一个值是alternate，动画播放在第偶数次向前播放，第奇数次向反方向播放。          
+            
+                                                                        
+    动画播放状态：animation-play-state 
+其中running为默认值，作用与音乐播放器相同，通过paused停止动画，也可通过running将动画开始播放。</p>
+                    </div>
+                </div>  
+                
+                          
+            </div>
+            
+        </div>
+    
+
+</body></html>
